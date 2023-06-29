@@ -81,7 +81,7 @@ else:
 test_image = x_test[0].reshape(1, *image_size, 1)
 
 #
-prediction = model.predict(test_image).argmax()
+prediction = model.predict(test_image, verbose=True).argmax()
 
 ##
 plt.imshow(test_image[0])
