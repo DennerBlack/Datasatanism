@@ -1,4 +1,5 @@
 import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 import tensorflow as tf
@@ -80,7 +81,7 @@ else:
 	model = tf.keras.models.load_model(f'weights/{model_name}_E{n_epochs}_v{i}.h5')
 
 #
-img_num = 34	# в датасете 10000 тестовых изображений
+img_num = 34  # в датасете 10000 тестовых изображений
 test_image = x_test[img_num].reshape(1, *image_size, 1)
 
 #

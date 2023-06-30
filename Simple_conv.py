@@ -80,7 +80,7 @@ else:
     model = tf.keras.models.load_model(f'weights/{model_name}_E{n_epochs}_v{i}.h5')
 
 #
-img_num = 5     # в датасете 10000 тестовых изображений
+img_num = 5  # в датасете 10000 тестовых изображений
 test_image = x_test[img_num].reshape(1, *image_size, 1)
 
 #
