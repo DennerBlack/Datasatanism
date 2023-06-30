@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 
 matplotlib.use('TkAgg')  # на винде можно убрать
 
+model_name = 'simple_conv'
+
 #
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
@@ -56,34 +58,35 @@ if new_model:
     )
 
     i = 0
-    while os.path.exists(f"weights/simple_conv_E{n_epochs}_v{i}.h5"):
+    while os.path.exists(f"weights/{model_name}_E{n_epochs}_v{i}.h5"):
         i += 1
     #
-    model.save(f'weights/simple_conv_E{n_epochs}_v{i}.h5')
+    model.save(f'weights/{model_name}_E{n_epochs}_v{i}.h5')
 
     #
     plt.plot(history.history['accuracy'])
     plt.plot(history.history['val_accuracy'])
-    plt.title(f'{f"simple_conv_E{n_epochs}_v{i}"} fitting history')
+    plt.title(f'{f"{model_name}_E{n_epochs}_v{i}"} fitting history')
     plt.xlabel('epoch')
     plt.legend(['train', 'validation'], loc='upper left')
     plt.show()
 
 else:
     i = 0
-    while os.path.exists(f"weights/simple_conv_E{n_epochs}_v{i + 1}.h5"):
+    while os.path.exists(f"weights/{model_name}_E{n_epochs}_v{i + 1}.h5"):
         i += 1
-    print(f'load model: simple_conv_E{n_epochs}_v{i}.h5')
+    print(f'load model: {model_name}_E{n_epochs}_v{i}.h5')
     ##
-    model = tf.keras.models.load_model(f'weights/simple_conv_E{n_epochs}_v{i}.h5')
+    model = tf.keras.models.load_model(f'weights/{model_name}_E{n_epochs}_v{i}.h5')
 
 #
-test_image = x_test[0].reshape(1, *image_size, 1)
+img_num = 5     # в датасете 10000 тестовых изображений
+test_image = x_test[img_num].reshape(1, *image_size, 1)
 
 #
 prediction = model.predict(test_image, verbose=True).argmax()
 
 ##
 plt.imshow(test_image[0])
-plt.title(f'Prediction: {prediction}, label: {y_test[0]}')
+plt.title(f'Prediction: {prediction}, label: {y_test[img_num]}')
 plt.show()
